@@ -1,0 +1,46 @@
+[package]
+name = "bb8_redis_stuck"
+version = "0.1.0"
+authors = ["Aleksandrov Vladimir <invis87@gmail.com>"]
+edition = "2018"
+build = "build.rs"
+
+[lib]
+name = "bb8_redis_stuck"
+path = "src/lib.rs"
+
+[[bin]]
+name = "simple_server"
+path = "src/simple_server.rs"
+
+[[bin]]
+name = "pool_server"
+path = "src/pool_server.rs"
+
+[[bin]]
+name = "client_ok"
+path = "src/client_ok.rs"
+
+[[bin]]
+name = "client_stuck"
+path = "src/client_stuck.rs"
+
+[dependencies]
+dotenv = "0.15.0"
+futures = "0.3.6"
+bb8 = "0.4.2"
+redis = { version = "0.17.0", features = ["tokio-comp"] }
+bb8-redis = { git = "https://github.com/khuey/bb8", branch = "master" }
+tokio = { version = "0.2.22", features = ["macros"] }
+actix-rt = "1.1.1"
+actix-web = "3.0.2"
+triggered = "0.1.1"
+tokio-util = "0.3.1"
+tonic = "0.3.1"
+prost = "0.6.1"
+log = "0.4.11"
+env_logger = "0.8.1"
+anyhow = "1.0.32"
+
+[build-dependencies]
+tonic-build = "0.3"
