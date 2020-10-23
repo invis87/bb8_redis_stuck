@@ -10,3 +10,5 @@ When open a lot of connections to service that used bb8-pool for redis it stop r
 4. start sending 200 requests and create connection for each one: `cargo run --bin client_stuck`
 
 After **4** step server stucked on ~90 request. If we replace it with one that does not use bb8-pool. All will be fine! Try it with `cargo run --bin simple_server`
+
+With `mobc` pool all works fine! Try it with `cargo run --bin mobc_server`
