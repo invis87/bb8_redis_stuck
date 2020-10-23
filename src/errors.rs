@@ -71,8 +71,16 @@ impl std::convert::From<bb8_redis::bb8::RunError<redis::RedisError>> for ApiErro
     }
 }
 
-impl std::convert::From<mobc::Error<redis::RedisError>> for ApiError {
-    fn from(err: mobc::Error<redis::RedisError>) -> ApiError {
+impl std::convert::From<mobc_redis::redis::RedisError> for ApiError {
+    fn from(err: mobc_redis::redis::RedisError) -> ApiError {
+        let msg = format!("redis error: '{:#}'", err);
+        let anyhow_err = anyhow::Error::msg(msg);
+        ApiError { err: anyhow_err }
+    }
+}
+
+impl std::convert::From<mobc::Error<mobc_redis::redis::RedisError>> for ApiError {
+    fn from(err: mobc::Error<mobc_redis::redis::RedisError>) -> ApiError {
         let msg = format!("getting mobc reddis error: '{:#}'", err);
         let anyhow_err = anyhow::Error::msg(msg);
         ApiError { err: anyhow_err }

@@ -1,6 +1,5 @@
-use bb8_redis_stuck::errors::*;
-use mobc::{Connection, Pool};
-use mobc_redis::redis::{AsyncCommands, FromRedisValue};
+use mobc::Pool;
+use mobc_redis::redis::AsyncCommands;
 use mobc_redis::{redis, RedisConnectionManager};
 
 use anyhow::anyhow;
@@ -21,12 +20,6 @@ async fn main() -> Result<()> {
 
     let client = redis::Client::open("redis://127.0.0.1:6379")?;
     let redis_conn_manager = RedisConnectionManager::new(client);
-    // Ok(Pool::builder()
-    //     .get_timeout(Some(Duration::from_secs(CACHE_POOL_TIMEOUT_SECONDS)))
-    //     .max_open(CACHE_POOL_MAX_OPEN)
-    //     .max_idle(CACHE_POOL_MAX_IDLE)
-    //     .max_lifetime(Some(Duration::from_secs(CACHE_POOL_EXPIRE_SECONDS)))
-    //     .build(manager))
     let redis_pool = Pool::builder().build(redis_conn_manager);
     let some_service_impl = SomeServiceImpl { redis_pool };
 
