@@ -1,5 +1,11 @@
 # bb8-redis bug reproduction
 
+---
+
+**No longer reproducible!**
+
+---
+
 When open a lot of connections to service that used bb8-pool for redis it stop responding.
 
 ## Steps to reproduce
